@@ -1,0 +1,41 @@
+{
+  "name": "T7D",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "sonar": "sonar-scanner -D project.settings=./products.properties",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GalactechTunisie/T7D.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GalactechTunisie/T7D/issues"
+  },
+  "homepage": "https://github.com/GalactechTunisie/T7D#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "@elastic/ecs-morgan-format": "^1.1.0",
+    "all": "0.0.0",
+    "axios": "^0.24.0",
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-flash": "^0.0.2",
+    "express-session": "^1.17.2",
+    "jsonparse": "^1.3.1",
+    "mongoose": "^6.0.12",
+    "morgan": "^1.10.0",
+    "simple-logstash-logger": "^0.5.0"
+  }
+}
