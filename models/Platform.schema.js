@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 
-const Categorys = new Schema(
+const Platforms = new Schema(
   {
     name: {
       type: String,
@@ -15,4 +15,4 @@ const Categorys = new Schema(
 
 
 
-module.exports = mongoose.model("Categorys", Categorys);
+module.exports = mongoose.model("Platforms", Platforms);
