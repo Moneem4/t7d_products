@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
 
-const Schema = mongoose.Schema;
 
-const GiftCardSchema = new Schema(
+const GiftCardSchema = mongoose.Schema(
   {
     product_id: {
       ref: "Products",

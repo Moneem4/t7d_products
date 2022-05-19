@@ -1,8 +1,12 @@
 const mongoose = require("mongoose");
 
 
-const Products = new Schema(
+const Products = mongoose.Schema(
   {
+    title: {
+      type: String,
+      unique:true
+    },
     description: {
       type: String,
     },
@@ -24,4 +28,8 @@ const Products = new Schema(
   { timestamps: true }
 );
 
+Products.index({ title: 1});
+
 module.exports = mongoose.model("Products", Products);
+
+

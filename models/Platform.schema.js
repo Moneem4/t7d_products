@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 
 
-const Platforms = new Schema(
+const Platforms = mongoose.Schema(
   {
     name: {
       type: String,
+      unique:true
     },
     description: {
       type: String,
@@ -13,6 +14,7 @@ const Platforms = new Schema(
   { timestamps: true }
 );
 
+Platforms.index({ name: 1});
 
 
 module.exports = mongoose.model("Platforms", Platforms);
