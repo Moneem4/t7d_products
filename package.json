@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/GalactechTunisie/T7D#readme",
   "devDependencies": {
+    "eslint": "^8.15.0",
     "nodemon": "^2.0.15"
   },
   "dependencies": {
@@ -36,6 +37,7 @@
     "mongoose": "^6.0.12",
     "morgan": "^1.10.0",
     "multer": "^1.4.4",
-    "multer-s3": "^2.10.0"
+    "multer-s3": "^2.10.0",
+    "standard": "^17.0.0"
   }
 }
