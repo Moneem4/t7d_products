@@ -47,7 +47,7 @@
     "max-len": [
       "error",
       {
-        "code": 200,
+        "code": 400,
         "ignoreUrls": true
       }
     ],
@@ -107,7 +107,6 @@
         "functions": false
       }
     ],
-    "arrow-body-style": ["error", "as-needed"],
     "arrow-spacing": ["error"],
     "no-confusing-arrow": [
       "error",

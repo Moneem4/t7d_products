@@ -38,7 +38,6 @@ exports.addGiftCard = async (req, res) =>  {
       display_costume_error(res, 'Product id not found', 404);
       return;
     }
-    console.log(typeof regions)
     if ((typeof JSON.parse(regions) !== 'object') && regions !== undefined) {
      display_costume_error(res, 'regions need to an  array');
      return
