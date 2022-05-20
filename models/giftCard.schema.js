@@ -2,12 +2,7 @@ const mongoose = require('mongoose')
 
 const GiftCardSchema = mongoose.Schema(
   {
-    product_id: {
-      ref: 'Products',
-      type: mongoose.Schema.Types.ObjectId,
-      required: true
-    },
-    catecoryId: { type: String },
+    productId: { type: mongoose.Schema.Types.ObjectId,ref: 'Products',required: true },
     sku: { type: String },
     description: { type: String },
     fullDescription: { type: String },
@@ -21,13 +16,12 @@ const GiftCardSchema = mongoose.Schema(
     rating: { type: Number },
     tag: { type: String },
     activationSteps: { type: String },
-    maxPurchase: { type: String },
-    available: { type: String },
+    maxPurchase: { type: Number },
+    available: { type: Boolean },
     categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'Games' },
-    platformId: { type: mongoose.Schema.Types.ObjectId, ref: 'Platform' }
-
+    platformId: { type: mongoose.Schema.Types.ObjectId, ref: 'Platform' },
   },
   { timestamps: true }
-)
+);
 
 module.exports = mongoose.model('GiftCard', GiftCardSchema)

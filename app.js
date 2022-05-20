@@ -1,7 +1,7 @@
 require('dotenv').config();
 const Products = require('./routes/products');
 const Category = require('./routes/category');
-// const GiftCard = require("./routes/giftCard");
+const giftCard = require('./routes/giftCard');
 const platform = require('./routes/platform');
 const morgan = require('morgan');
 const express = require('express');
@@ -15,7 +15,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.use("/gamescategories", GameCategory);
+app.use('/giftCard', giftCard);
 app.use('/products', Products);
 app.use('/categories', Category);
 app.use('/platform', platform);

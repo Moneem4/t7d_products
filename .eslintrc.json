@@ -23,7 +23,6 @@
         "allowSingleLine": true
       }
     ],
-    "eol-last": ["error"],
     "func-call-spacing": ["error", "never"],
     "key-spacing": [
       "error",
@@ -67,10 +66,8 @@
       }
     ],
     "new-parens": ["error"],
-    "no-trailing-spaces": ["error"],
     "no-unneeded-ternary": ["error"],
     "no-whitespace-before-property": ["error"],
-    "object-curly-spacing": ["error", "always"],
     "operator-assignment": ["error", "always"],
     "semi-spacing": [
       "error",
