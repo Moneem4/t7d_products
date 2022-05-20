@@ -5,15 +5,10 @@ const GiftCardModel = require('../models/giftCard.schema');
 const {display_costume_error} = require('../global_functions/display_costume_error');
 const {display_error_message} = require('../global_functions/display_error_message');
 const validator = require('../middleware/validatorRequiredData');
-const mongoose = require('mongoose');
-const AWS = require('aws-sdk');
+const {s3delete} = require('../global_functions/s3delete')
 
-const s3 = new AWS.S3({
-  accessKeyId: process.env.accessKeyId,
-  secretAccessKey: process.env.secretAccessKey,
-  region: 'me-south-1',
-  correctClockSkew: true,
-});
+const mongoose = require('mongoose');
+
 exports.addGiftCard = async (req, res) =>  {
 
   try {
@@ -209,18 +204,3 @@ exports.deleteOneGiftCard = (req, res) => {
 
 
 
-async function s3delete(imageKeys) {
-  s3.deleteObject(
-    {
-      Bucket: 't7d-galactech',
-      Key: imageKeys,
-    },
-    (err, data) => {
-      if (err) {
-        console.log('err ==>', err.message);
-      } else {
-        console.error('delete successfully', data);
-      }
-    }
-  );
-}

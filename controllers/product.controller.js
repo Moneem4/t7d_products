@@ -1,23 +1,11 @@
 const ProductModel = require('../models/Product.schema.js');
 const PlatformModel = require('../models/Platform.schema');
 const categoryModel = require('../models/Category.schema');
-const {
-  display_costume_error,
-} = require('../global_functions/display_costume_error');
-const {
-  display_error_message,
-} = require('../global_functions/display_error_message');
+const {display_costume_error,} = require('../global_functions/display_costume_error');
+const {display_error_message,} = require('../global_functions/display_error_message');
 const validator = require('../middleware/validatorRequiredData');
 const mongoose = require('mongoose');
-
-const AWS = require('aws-sdk');
-
-const s3 = new AWS.S3({
-  accessKeyId: process.env.accessKeyId,
-  secretAccessKey: process.env.secretAccessKey,
-  region: 'me-south-1',
-  correctClockSkew: true,
-});
+const {s3delete} = require('../global_functions/s3delete')
 
 exports.addproduct = async (req, res) => {
   try {
@@ -53,10 +41,10 @@ exports.addproduct = async (req, res) => {
 
     const { description, company, categoryId, title, platformId } = req.body;
     const findCat = await categoryModel.findOne({
-      _id: mongoose.Types.ObjectId(categoryId),
+      _id: mongoose.Types.ObjectId(categoryId)
     });
     const findPlat = await PlatformModel.findOne({
-      _id: mongoose.Types.ObjectId(platformId),
+      _id: mongoose.Types.ObjectId(platformId)
     });
 
     if (findCat === null) {
@@ -235,18 +223,4 @@ exports.deleteOneProduct = (req, res) => {
     });
 };
 
-async function s3delete(imageKeys) {
-  s3.deleteObject(
-    {
-      Bucket: 't7d-galactech',
-      Key: imageKeys,
-    },
-    (err, data) => {
-      if (err) {
-        console.log('err ==>', err.message);
-      } else {
-        console.error('delete successfully', data);
-      }
-    }
-  );
-}
+

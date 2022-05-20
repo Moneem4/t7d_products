@@ -3,23 +3,11 @@ const router = express.Router()
 const productController = require('../controllers/product.controller')
 const multer = require('multer')
 const multerS3 = require('multer-s3')
+const {s3} = require('../global_functions/connectS3')
+const {fileFilter} = require('../global_functions/check_image_type')
 
-const AWS = require('aws-sdk')
 
-const s3 = new AWS.S3({
-  accessKeyId: process.env.accessKeyId,
-  secretAccessKey: process.env.secretAccessKey,
-  region: 'me-south-1',
-  correctClockSkew: true
-})
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png' || file.mimetype === 'application/pdf') {
-    cb(null, true)
-  } else {
-    req.error = 'Invalid file type, only JPEG and PNG is allowed!'
-    cb(null, true)
-  }
-}
+
 const upload = multer({
   fileFilter,
   storage: multerS3({
