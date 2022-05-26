@@ -1,10 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const productController = require('../controllers/product.controller')
-const multer = require('multer')
-const multerS3 = require('multer-s3')
-const {s3} = require('../global_functions/connectS3')
-const { fileFilter } = require('../global_functions/check_image_type')
 const {upload} = require('../global_functions/multer')
 
 

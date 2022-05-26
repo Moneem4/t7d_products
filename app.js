@@ -3,6 +3,7 @@ const Products = require('./routes/products');
 const Category = require('./routes/category');
 const giftCard = require('./routes/giftCard');
 const platform = require('./routes/platform');
+const cart = require('./routes/cart');
 const morgan = require('morgan');
 const express = require('express');
 const connectDB = require('./config/connectDB');
@@ -19,6 +20,7 @@ app.use('/giftCard', giftCard);
 app.use('/products', Products);
 app.use('/categories', Category);
 app.use('/platform', platform);
+app.use('/cart', cart);
 app.use((req, res) => {
   res.status(404).json({ error: 'page not found' });
 });
