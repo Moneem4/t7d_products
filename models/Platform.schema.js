@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const Categorys = mongoose.Schema(
+const Platforms = mongoose.Schema(
   {
     name: {
       type: String,
@@ -13,6 +13,6 @@ const Categorys = mongoose.Schema(
   { timestamps: true }
 )
 
-Categorys.index({ name: 1 })
+Platforms.index({ name: 1 })
 
-module.exports = mongoose.model('Categorys', Categorys)
+module.exports = mongoose.model('Platforms', Platforms)

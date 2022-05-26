@@ -13,7 +13,6 @@ COPY package*.json ./
 
 RUN npm install --silent
 COPY . .
-RUN apk add npm
 # copy local files to app folder
 EXPOSE 3000
 CMD ["npm","run","dev"]
