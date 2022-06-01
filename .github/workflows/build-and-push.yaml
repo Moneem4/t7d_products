@@ -11,6 +11,14 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - 
+        name: Generate build ID
+        id: prep
+        run: |
+          branch=${GITHUB_REF##*/}
+          sha=${GITHUB_SHA::8}
+          ts=$(date +%s)
+          echo "::set-output name=BUILD_ID::${branch}-${sha}-${ts}"
+      - 
         name: Checkout
         uses: actions/checkout@v3
       -
@@ -28,6 +36,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: '${{ secrets.REGISTRY_URL }}/t7d_products:latest'
+          tags: '${{ secrets.REGISTRY_URL }}/t7d_products:${{ steps.prep.outputs.BUILD_ID }}'
           cache-from: 'type=registry,ref=${{ secrets.REGISTRY_URL }}/t7d_products:buildcache'
           cache-to: 'type=registry,ref=${{ secrets.REGISTRY_URL }}/t7d_products:buildcache,mode=max'
