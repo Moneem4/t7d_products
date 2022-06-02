@@ -1,4 +1,4 @@
-const PlatformModel = require('../models/Platform.schema');
+const PlatformModel = require('../models/platform.schema');
 const {display_costume_error} = require('../global_functions/display_costume_error');
 const {display_error_message} = require('../global_functions/display_error_message');
 const validator = require('../middleware/validatorRequiredData');
