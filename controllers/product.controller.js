@@ -129,7 +129,7 @@ exports.getproducts = (req, res) => {
     Object.keys(params).length === 0 ? {} : { $and: newparamsSearch }
   )
     .sort({ createdAt: 1 })
-        .select('-createdAt -updatedAt -categoryId -platformId')
+        .select('-createdAt -updatedAt -categoryId -platformId _id coverImage banner logo description title')
 
     .skip(req.body.skip - 0)
     .limit(req.body.limit - 0)
