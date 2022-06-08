@@ -86,6 +86,7 @@ exports.getProductById = (req, res) => {
     return;
   }
   ProductModel.findOne({ _id: mongoose.Types.ObjectId(req.params.id) })
+    .select('-createdAt -updatedAt -categoryId -platformId')
     .then((data) => {
       if (data === null) {
         display_costume_error(res, 'product not found', 404);
@@ -128,6 +129,8 @@ exports.getproducts = (req, res) => {
     Object.keys(params).length === 0 ? {} : { $and: newparamsSearch }
   )
     .sort({ createdAt: 1 })
+        .select('-createdAt -updatedAt -categoryId -platformId')
+
     .skip(req.body.skip - 0)
     .limit(req.body.limit - 0)
     .then((data) => {
