@@ -25,3 +25,4 @@ const GiftCardSchema = mongoose.Schema(
 );
 
 module.exports = mongoose.model('GiftCard', GiftCardSchema)
+
