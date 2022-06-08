@@ -76,7 +76,7 @@ exports.getFromCart = (req, res) => {
 
     const currentDatePlusMonth = new Date((Date.now() + (1000 * 60 * 60 * 24 * -7)))
     CartModel.findOne({ profileId: req.verified.profileId }).populate('giftCardsId.gifCardId','productId description fullDescription price icon').exec().then(data => {
-                    if (data.lastUpdate < currentDatePlusMonth) {
+                    if (data !== null && data !== undefined && (data.lastUpdate < currentDatePlusMonth)) {
                         data.giftCardsId = []
                         data.lastUpdate = new Date()
                         data.save().then(data => {
@@ -88,7 +88,7 @@ exports.getFromCart = (req, res) => {
                     } else {
                         res.status(res.statusCode).json({
                         message: 'cart data',
-                        data
+                        data: data === null ? [] : data
                     });
                     }
 
