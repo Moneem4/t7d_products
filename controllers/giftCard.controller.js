@@ -218,7 +218,7 @@ exports.getHotDeals = (req, res) => {
     sortParamsPremuim = req.body.discountSort === 'ASC' ? { discountPremium: 1 } : { discountPremium: -1 };
      GiftCardModel.find({})
     .sort(req.verified.premium === true ? { ...sortParamsPremuim } : { ...sortParams })
-    .select('-createdAt -updatedAt -categoryId -platformId -originalPrice -provider -sku -productId')
+    .select('-createdAt -updatedAt -categoryId -platformId -originalPrice -provider -sku ')
     .skip(req.body.skip - 0)
     .limit(req.body.limit - 0)
     .then((data) => {
