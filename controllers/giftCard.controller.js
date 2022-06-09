@@ -213,8 +213,7 @@ exports.getHotDeals = (req, res) => {
     display_costume_error(res, 'discountSort need to be ASC OR DESC', 400);
     return
   }*/
-  typeof req.body.statePremOrNew !== 'boolean'
-  if (typeof req.body.statePremOrNew !== 'boolean') {
+  if (req.body.statePremOrNew !== undefined && typeof req.body.statePremOrNew !== 'boolean') {
     display_costume_error(res, 'statePremOrNew need to be Boolean ', 400);
     return
 
