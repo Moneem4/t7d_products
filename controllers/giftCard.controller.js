@@ -206,19 +206,25 @@ exports.deleteOneGiftCard = (req, res) => {
 
 
 exports.getHotDeals = (req, res) => {
-    if (validator(req.body, ['skip', 'limit','discountSort'], res)) {
+    if (validator(req.body, ['skip', 'limit'], res)) {
     return;
   }
-  if (req.body.discountSort !== 'ASC' && req.body.discountSort !== 'DESC') {
+ /* if (req.body.discountSort !== 'ASC' && req.body.discountSort !== 'DESC') {
     display_costume_error(res, 'discountSort need to be ASC OR DESC', 400);
     return
+  }*/
+  typeof req.body.statePremOrNew !== 'boolean'
+  if (typeof req.body.statePremOrNew !== 'boolean') {
+    display_costume_error(res, 'statePremOrNew need to be Boolean ', 400);
+    return
+
   }
-    let sortParams = undefined;
-    sortParams = req.body.discountSort === 'ASC' ? {discount: 1} : {discount: -1};
-    sortParamsPremuim = req.body.discountSort === 'ASC' ? { discountPremium: 1 } : { discountPremium: -1 };
-     GiftCardModel.find({})
-    .sort(req.verified.premium === true ? { ...sortParamsPremuim } : { ...sortParams })
-    .select('-createdAt -updatedAt -categoryId -platformId -originalPrice -provider -sku ')
+  // true mean its prem false its regular
+  if (req.body.statePremOrNew === true) {
+
+        GiftCardModel.find(req.body.categoryIds !== undefined ? { $and: [{ categoryId: { $in: req.body.categoryIds } },{discountPremium: { $ne: 0 }}] } : {discountPremium: { $ne: 0 }})
+    //.sort(req.verified.premium === true ? { ...sortParamsPremuim } : { ...sortParams })
+    .select('-createdAt -updatedAt -categoryId -platformId -originalPrice -provider -sku -discount')
     .skip(req.body.skip - 0)
     .limit(req.body.limit - 0)
     .then((data) => {
@@ -235,6 +241,54 @@ exports.getHotDeals = (req, res) => {
     .catch((error) => {
       display_error_message(res, error);
     });
+  } else if (req.body.statePremOrNew === false){
+    GiftCardModel.find(req.body.categoryIds !== undefined ? { $and: [{ categoryId: { $in: req.body.categoryIds } }] } : {})
+    .sort({updatedAt: -1})
+    .select('-createdAt -updatedAt -categoryId -platformId -originalPrice -provider -sku -discountPremium')
+    .skip(req.body.skip - 0)
+    .limit(req.body.limit - 0)
+    .then((data) => {
+      if (data.length === 0) {
+        display_costume_error(res, 'no data was found', 404);
+      } else {
+        
+        res.status(res.statusCode).json({
+          message: 'products data',
+          data,
+        });
+      }
+    })
+    .catch((error) => {
+      display_error_message(res, error);
+    });
+  } else {
+     GiftCardModel.find(req.body.categoryIds !== undefined ?  { $and: [{ categoryId: { $in: req.body.categoryIds } }] } : {})
+    .sort({createdAt: -1})
+    .select('-createdAt -updatedAt -categoryId -platformId -originalPrice -provider -sku -discountPremium')
+    .skip(req.body.skip - 0)
+    .limit(req.body.limit - 0)
+    .then((data) => {
+      if (data.length === 0) {
+        display_costume_error(res, 'no data was found', 404);
+      } else {
+        
+        res.status(res.statusCode).json({
+          message: 'products data',
+          data,
+        });
+      }
+    })
+    .catch((error) => {
+      display_error_message(res, error);
+    });
+  }
+    //let sortParams = undefined;
+    //sortParams = req.body.discountSort === 'ASC' ? {discount: 1} : {discount: -1};
+    //sortParamsPremuim = req.body.discountSort === 'ASC' ? { discountPremium: 1 } : { discountPremium: -1 };
+
 
 
 }
+
+
+
