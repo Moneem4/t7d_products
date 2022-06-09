@@ -122,7 +122,7 @@ exports.getGiftCards = (req, res) => {
     Object.keys(params).length === 0 ? {} : { $and: newParamsSearch }
     ) 
     .sort(sortParams !== undefined ? { ...sortParams } : { createdAt: 1 })
-    .select('-createdAt -updatedAt -categoryId -platformId -originalPrice -provider -sku -productId')
+    .select('-createdAt -updatedAt -categoryId -platformId -originalPrice -provider -sku')
     .skip(req.body.skip - 0)
     .limit(req.body.limit - 0)
     .then((data) => {
