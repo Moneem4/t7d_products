@@ -8,6 +8,9 @@ const Platforms = mongoose.Schema(
     },
     description: {
       type: String
+    },
+    icon: {
+      type: String
     }
   },
   { timestamps: true }

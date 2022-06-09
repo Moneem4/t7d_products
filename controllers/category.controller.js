@@ -9,6 +9,7 @@ exports.addCategory = (req, res) => {
   if (validator(req.body, ['description', 'name'], res)) {
     return;
   }
+
   try {
     const category = new CategoryModel({
       name,
@@ -33,7 +34,7 @@ exports.updateCategory = (req, res) => {
     return;
   }
   const { _id, name, description } = req.body;
-  const params = { _id, name, description };
+  const params = { _id, name, description};
   for (const prop in params) if (!params[prop]) delete params[prop];
   CategoryModel.findOneAndUpdate(
     { _id: mongoose.Types.ObjectId(req.body._id) },
@@ -45,6 +46,7 @@ exports.updateCategory = (req, res) => {
       if (data === null) {
         display_costume_error(res, 'Category id not found', 404);
       } else {
+
         res.status(res.statusCode).json({
           message: 'category  data was updated',
         });
