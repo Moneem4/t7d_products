@@ -22,7 +22,6 @@ exports.addPlatform = (req, res) => {
       name,
       description,
       icon: req.file.location
-
     });
     Platform.save()
       .then(() => {
