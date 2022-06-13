@@ -76,7 +76,7 @@ exports.getFromCart = (req, res) => {
 
 
     const currentDatePlusMonth = new Date((Date.now() + (1000 * 60 * 60 * 24 * -7)))
-    CartModel.findOne({ profileId: req.verified.profileId }).populate('giftCardsId.gifCardId','discount discountPremium productId description fullDescription price icon').exec().then(data => {
+    CartModel.findOne({ profileId: req.verified.profileId }).populate('giftCardsId.gifCardId','sku discount discountPremium productId description fullDescription price icon').exec().then(data => {
                     if (data !== null && data !== undefined && (data.lastUpdate < currentDatePlusMonth)) {
                         data.giftCardsId = []
                         data.lastUpdate = new Date()
