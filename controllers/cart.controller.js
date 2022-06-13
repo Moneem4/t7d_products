@@ -76,8 +76,9 @@ exports.getFromCart = (req, res) => {
 
 
     const currentDatePlusMonth = new Date((Date.now() + (1000 * 60 * 60 * 24 * -7)))
-    CartModel.findOne({ profileId: req.verified.profileId }).populate('giftCardsId.gifCardId','sku discount discountPremium productId description fullDescription price icon').exec().then(data => {
-                    if (data !== null && data !== undefined && (data.lastUpdate < currentDatePlusMonth)) {
+    //'giftCardsId.gifCardId','sku discount discountPremium productId description fullDescription price icon'
+    CartModel.findOne({ profileId: req.verified.profileId }).populate('giftCardsId.gifCardId','sku icon discount discountPremium productId description fullDescription price icon').exec().then(data => {
+                       if (data !== null && data !== undefined && (data.lastUpdate < currentDatePlusMonth)) {
                         data.giftCardsId = []
                         data.lastUpdate = new Date()
                         data.save().then(data => {
@@ -86,11 +87,22 @@ exports.getFromCart = (req, res) => {
                                 data
                             });
                         })
-                    } else {
+                       } else {
+                      const arrayOifIdGiftCardsNotNull = []
+                        for (let i = 0; i < data.giftCardsId.length; i++){
+                            if (data.giftCardsId[i].gifCardId !== null) {
+                                arrayOifIdGiftCardsNotNull.push(data.giftCardsId[i])
+                            }
+                           }
+                           const finalData = {
+                               _id: data._id,
+                               profileId: data.profileId,
+                               giftCardsId: arrayOifIdGiftCardsNotNull
+                           }
                         res.status(res.statusCode).json({
                         message: 'cart data',
-                        data: data === null ? [] : data
-                    });
+                        data: data === null ? [] : finalData
+                        });
                     }
 
     }).catch(error => {
@@ -111,3 +123,14 @@ exports.deleteFromCart = (req, res) => {
          display_error_message(res, error);
     })
 }
+
+exports.emptyCart = (req, res) => {
+    CartModel.findOneAndUpdate({ profileId: req.verified.profileId},{$set: { giftCardsId: [],lastUpdate: new Date() }}).then(data => {
+        res.status(res.statusCode).json({
+        message: 'empty cart',
+        });
+    }).catch(error => {
+         display_error_message(res, error);
+    })
+}
+
